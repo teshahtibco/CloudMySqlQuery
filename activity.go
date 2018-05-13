@@ -35,6 +35,7 @@ func (a *MyActivity) Eval(context activity.Context) (done bool, err error) {
 	user := context.GetInput("username").(string)
 	pwd := context.GetInput("password").(string)
 	instance := context.GetInput("instance").(string)
+	method := context.GetInput("method").(string)
 	query := context.GetInput("query").(string)
 	s := []string{user, ":", pwd, "@tcp(", host, ":", port, ")/", instance}
 	url := strings.Join(s, "")
@@ -56,6 +57,10 @@ func (a *MyActivity) Eval(context activity.Context) (done bool, err error) {
 	f := make(map[int]interface{})
 	g := make(map[int]interface{})
 	sNo := 0
+	
+	switch strings.ToUpper(method) {
+	
+	case "QUERY":
 	rows, queryerr := db.Query(query)
 
 	if queryerr != nil {
@@ -109,6 +114,28 @@ func (a *MyActivity) Eval(context activity.Context) (done bool, err error) {
 	h := map[string]interface{}{"result": resultinterface}
 	context.SetOutput("result", h)
 
-	
+	case "OTHER":
+		stmt, err := db.Prepare(query)
+		if err != nil {
+			log.Fatal(err)
+		}
+		res, err := stmt.Exec()
+		if err != nil {
+			log.Fatal(err)
+		}
+		lastId, err := res.LastInsertId()
+		if err != nil {
+			log.Fatal(err)
+		}
+		rowCnt, err := res.RowsAffected()
+		if err != nil {
+			log.Fatal(err)
+		}
+		log.Printf("ID = %d, affected = %d\n", lastId, rowCnt)
+			
+	default:
+		fmt.Printf("unsupported method '%s'", method)
+		return false, fmt.Errorf("unsupported method '%s'", method)
+	}
 	return true, nil
 }

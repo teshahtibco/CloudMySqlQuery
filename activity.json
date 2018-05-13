@@ -27,6 +27,15 @@
       "type": "string"
     },
 	{
+      "name": "method",
+      "type": "string",
+	  "allowed": [
+        "QUERY",
+        "OTHER"
+      ],
+	   "value": "QUERY"
+    },
+	{
       "name": "query",
       "type": "string"
     }

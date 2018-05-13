@@ -54,6 +54,7 @@ func TestEval(t *testing.T) {
 	tc.SetInput("username", "root")
 	tc.SetInput("password", "gopassword")
 	tc.SetInput("instance", "GOTEST")
+	tc.SetInput("method", "QUERY")
 	tc.SetInput("query", "select * from Employee")
 	act.Eval(tc)
 	result := tc.GetOutput("result")
