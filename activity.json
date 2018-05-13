@@ -1,0 +1,40 @@
+{
+  "name": "CloudMySqlQuery",
+  "version": "0.0.1",
+  "type": "flogo:activity",
+  "ref": "git.tibco.com/git/field/flogohackathon/drift_with_go/CloudMySqlQuery",
+  "description": "Connect to Google Cloud Sql Instance",
+  "author": "Tejas Shah",
+  "inputs":[
+    {
+      "name": "hostname",
+      "type": "string"
+    },
+    {
+      "name": "port",
+      "type": "string"
+    },
+    {
+      "name": "username",
+      "type": "string"
+    },
+    {
+      "name": "password",
+      "type": "string"
+    },
+    {
+      "name": "instance",
+      "type": "string"
+    },
+	{
+      "name": "query",
+      "type": "string"
+    }
+  ],
+  "outputs": [
+    {
+      "name": "result",
+      "type": "any"
+    }
+  ]
+}
