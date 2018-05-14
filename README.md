@@ -1,7 +1,3 @@
----
-title: CloudMySqlQuery Activity
----
-
 # CloudMySqlQuery Activity
 This activity allows you to Connect to Google cloud MySQL instance and perform Query/Update operations on the database
 
